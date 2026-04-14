@@ -2,59 +2,76 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<title>My Phone</title>
+<title>iOS Phone</title>
 
 <style>
 body {
     margin: 0;
-    background: #0f0f0f;
+    background: #d6d6d6;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: Arial;
 }
 
 .phone {
     width: 320px;
     height: 640px;
-    background: #1c1c1c;
-    border-radius: 40px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.6);
-    padding: 20px;
+    background: #111;
+    border-radius: 45px;
+    padding: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 
 .screen {
     width: 100%;
     height: 100%;
-    background: #000;
-    border-radius: 25px;
-    color: white;
-    padding: 15px;
+    background: #f5f5f7;
+    border-radius: 35px;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
 }
 
-.app-grid {
+.grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
     margin-top: 20px;
 }
 
 .app {
-    width: 70px;
-    height: 70px;
-    background: #333;
-    border-radius: 18px;
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 28px;
+    font-size: 24px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
     cursor: pointer;
+    transition: 0.2s;
 }
 
-.title {
-    font-size: 18px;
-    opacity: 0.8;
+.app:active {
+    transform: scale(0.92);
+}
+
+.status {
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+    opacity: 0.7;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
 }
 </style>
 </head>
@@ -62,21 +79,55 @@ body {
 <body>
 
 <div class="phone">
-    <div class="screen">
+<div class="screen">
 
-        <div class="title">📱 My Phone</div>
+<div id="home" class="page active">
 
-        <div class="app-grid">
-            <div class="app">💬</div>
-            <div class="app">📷</div>
-            <div class="app">🎵</div>
-            <div class="app">📁</div>
-            <div class="app">🌐</div>
-            <div class="app">⚙️</div>
-        </div>
+    <div class="status">9:41</div>
 
+    <div class="grid">
+        <div class="app" onclick="openApp('chat')">💬</div>
+        <div class="app" onclick="openApp('photo')">📷</div>
+        <div class="app" onclick="openApp('music')">🎵</div>
+        <div class="app" onclick="openApp('settings')">⚙️</div>
     </div>
+
 </div>
+
+<div id="chat" class="page">
+    <h3>💬 Chat</h3>
+    <p onclick="back()">← 返回</p>
+</div>
+
+<div id="photo" class="page">
+    <h3>📷 Photos</h3>
+    <p onclick="back()">← 返回</p>
+</div>
+
+<div id="music" class="page">
+    <h3>🎵 Music</h3>
+    <p onclick="back()">← 返回</p>
+</div>
+
+<div id="settings" class="page">
+    <h3>⚙️ Settings</h3>
+    <p onclick="back()">← 返回</p>
+</div>
+
+</div>
+</div>
+
+<script>
+function openApp(name){
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(name).classList.add('active');
+}
+
+function back(){
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('home').classList.add('active');
+}
+</script>
 
 </body>
 </html>
